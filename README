@@ -1,0 +1,116 @@
+
+# 🕷️ hackheart-auto-recon
+
+> _Because Hacking Ethical is an Art._
+
+**hackheart-auto-recon** est un outil de reconnaissance automatisée et furtive, pensé pour les pentesteurs, les étudiants OSCP, et les Red Teamers qui veulent aller à l’essentiel sans se faire repérer.
+
+---
+
+## ⚙️ Fonctionnalités
+
+- 🔍 Scan Nmap furtif (`-sS -T2 -Pn -sV --open`)
+- 🧪 Analyse adaptative selon les services détectés :
+  - **HTTP** → Gobuster auto (`Status: 200` uniquement, option `--show-redirects`)
+  - **FTP** → Test de connexion anonyme + `ls`
+  - **SMB** → Enumération des partages (`smbclient -L`)
+- 📄 Génération d’un rapport :
+  - Markdown (.md)
+  - HTML (optionnel avec `--html`)
+
+---
+
+## 🚀 Utilisation
+
+### 🔧 Commande de base
+
+```bash
+python3 scan_auto.py --ip 10.10.10.83
+```
+
+### ➕ Afficher les redirections HTTP (`301`, `302`)
+
+```bash
+python3 scan_auto.py --ip 10.10.10.83 --show-redirects
+```
+
+### 🌐 Générer un rapport HTML
+
+```bash
+python3 scan_auto.py --ip 10.10.10.83 --html
+```
+
+---
+
+## 🧰 Dépendances
+
+- Python 3
+- `nmap`
+- `gobuster`
+- `ftp`
+- `smbclient`
+
+> 📝 Wordlist utilisée : `/usr/share/wordlists/dirb/common.txt`
+
+---
+
+## 📦 Exemples de rapport
+
+```markdown
+# Rapport de Reconnaissance
+
+**Cible :** 10.10.10.83  
+**Date :** 2025-04-19_07-42-22
+
+## 🔍 Résultat Nmap
+
+22/tcp open ssh  
+21/tcp open ftp  
+80/tcp open http  
+
+## ⚙️ Analyse des services détectés
+
+### 🧪 FTP (21)
+- Connexion anonymous : ✅
+- Liste des fichiers : ...
+
+### 🧪 HTTP Gobuster (http port 80)
+- /admin (Status: 200)
+- /login (Status: 200)
+```
+
+---
+
+## 📁 Structure recommandée
+
+```
+hackheart-auto-recon/
+├── scan_auto.py
+├── README.md
+├── LICENSE
+└── examples/
+    └── rapport_sample.md
+```
+
+---
+
+## 🧠 À venir
+
+- 📸 Capture automatique des interfaces HTTP
+- 🧬 Détection CMS avec WhatWeb
+- 📡 Intégration proxychains
+- ☠️ Mode ultra-silencieux Red Team (slow scan / random delay)
+
+---
+
+## 🧑‍💻 Auteur
+
+**HackHeart**  
+_“Hacking Ethical is an Art”_  
+🌐 [hackheart.fr](https://hackheart.fr)
+
+---
+
+## 📜 Licence
+
+Ce projet est open-source et distribué sous licence MIT.
